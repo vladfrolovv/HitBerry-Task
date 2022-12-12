@@ -14,8 +14,8 @@ public class InputManager : MonoBehaviour {
   private TouchPhase phase;
   private Touch touch;
   private void Update() {
+    // add possible touch zone
     if (Input.touchCount == 1 || Input.GetMouseButtonDown(0) || Input.GetMouseButtonUp(0)) {
-      // if touch detected
       if (Input.touchCount == 1) {
         touch = Input.GetTouch(0);
         phase = touch.phase;
@@ -49,7 +49,9 @@ public class InputManager : MonoBehaviour {
           RaycastHit hit;
           if (Physics.Raycast(ray, out hit)) {
             if (interactedGameObject == hit.collider.gameObject) {
-              throwIngredient.Throw(interactedGameObject.GetComponentInParent<IThrowable>().Throw());
+              if (interactedGameObject.GetComponentInParent<IThrowable>() != null) {
+                throwIngredient.Throw(interactedGameObject.GetComponentInParent<IThrowable>().Throw());
+              } 
             }
           }
           interactedGameObject.GetComponentInParent<IInteractive>().OnRelease();
