@@ -19,6 +19,11 @@ public class Animator : MonoBehaviour {
     yield break;
   }
 
+  public static IEnumerator WithTimeout(Action todo, float timeout) {
+    yield return new WaitForSeconds(timeout);
+    todo();
+  }
+
   public static Vector3 Lerp(Vector3 from, Vector3 to, float t) {
     return from + (to - from) * t;
   }

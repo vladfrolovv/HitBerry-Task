@@ -1,6 +1,9 @@
 using UnityEngine;
+using UnityEngine.UI;
 
 public class InputManager : MonoBehaviour {
+  [Header("Ingredient Menu")]
+  [SerializeField] private ScrollRect ingredientsMenu;
 
   private GameObject interactedGameObject;
   private Vector3 touchStartPos, touchEndPos;
@@ -39,6 +42,13 @@ public class InputManager : MonoBehaviour {
         } 
       } else if (phase == TouchPhase.Ended) {
         if (interactedGameObject) {
+          Ray ray = Camera.main.ScreenPointToRay(touchEndPos);
+          RaycastHit hit;
+          if (Physics.Raycast(ray, out hit)) {
+            if (interactedGameObject == hit.collider.gameObject) {
+              // todo
+            }
+          }
           interactedGameObject.GetComponentInParent<IInteractive>().OnRelease();
           interactedGameObject = null;
         }
