@@ -5,6 +5,9 @@ public class InputManager : MonoBehaviour {
   [Header("Ingredient Menu")]
   [SerializeField] private ScrollRect ingredientsMenu;
 
+  [Header("References")]
+  [SerializeField] private ThrowIngredient throwIngredient;
+  
   private GameObject interactedGameObject;
   private Vector3 touchStartPos, touchEndPos;
   
@@ -46,7 +49,7 @@ public class InputManager : MonoBehaviour {
           RaycastHit hit;
           if (Physics.Raycast(ray, out hit)) {
             if (interactedGameObject == hit.collider.gameObject) {
-              // todo
+              throwIngredient.Throw(interactedGameObject.GetComponentInParent<IThrowable>().Throw());
             }
           }
           interactedGameObject.GetComponentInParent<IInteractive>().OnRelease();

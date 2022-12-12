@@ -155,6 +155,22 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8951028202516128143, guid: d25ef4d9fab984362be4fb6619987bb3, type: 3}
+      propertyPath: ingredient
+      value: 
+      objectReference: {fileID: 5637728441978020377}
+    - target: {fileID: 8951028202516128143, guid: d25ef4d9fab984362be4fb6619987bb3, type: 3}
+      propertyPath: _ingredientColor.b
+      value: 0.30980393
+      objectReference: {fileID: 0}
+    - target: {fileID: 8951028202516128143, guid: d25ef4d9fab984362be4fb6619987bb3, type: 3}
+      propertyPath: _ingredientColor.g
+      value: 0.30588236
+      objectReference: {fileID: 0}
+    - target: {fileID: 8951028202516128143, guid: d25ef4d9fab984362be4fb6619987bb3, type: 3}
+      propertyPath: _ingredientColor.r
+      value: 0.75294125
+      objectReference: {fileID: 0}
     - target: {fileID: 9163023796345185740, guid: d25ef4d9fab984362be4fb6619987bb3, type: 3}
       propertyPath: m_Name
       value: Apple
