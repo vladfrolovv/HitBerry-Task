@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class Ingredient : MonoBehaviour, IIngredient, IThrowable {
@@ -13,10 +14,21 @@ public class Ingredient : MonoBehaviour, IIngredient, IThrowable {
 
   public GameObject GetIngredient() {
     GameObject thisIngredient = Instantiate(ingredient);
-    thisIngredient.AddComponent<Rigidbody>();
-    thisIngredient.transform.localScale = Vector3.one;
+
+    ingredientAppear = IngredientAppear(thisIngredient);
+    StartCoroutine(ingredientAppear);
     
     return thisIngredient;
+  }
+
+  private IEnumerator ingredientAppear;
+  private IEnumerator IngredientAppear(GameObject thisIngredient) {
+    return Animator.Animate((float t) => {
+      t = Easings.easeOutBack(t);
+      thisIngredient.transform.localScale = Animator.Lerp(Vector3.zero, Vector3.one, t);
+    }, .12f, () => {    
+      thisIngredient.AddComponent<Rigidbody>();
+    });
   }
 
   public GameObject Throw() {
