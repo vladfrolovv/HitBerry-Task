@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 
 public class Blender : MonoBehaviour {
-  private const int MAX_INGREDIENTS_IN_BLENDER = 8;
+  private const int MAX_INGREDIENTS_IN_BLENDER = 10;
   private readonly List<GameObject> ingredientsInBlender = new List<GameObject>();
 
   [Header("Lid")]
@@ -24,6 +24,8 @@ public class Blender : MonoBehaviour {
   }
 
   public void Blend() {
+    if (ingredientsInBlender.Count == 0) { return; }
+    
     blenderLid.LidState(false); // close lid
     StartCoroutine(FillBlender()); // start filling
     
