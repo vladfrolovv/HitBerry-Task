@@ -14,10 +14,8 @@ public class Ingredient : MonoBehaviour, IIngredient, IThrowable {
 
   public GameObject GetIngredient() {
     GameObject thisIngredient = Instantiate(ingredient);
-
-    ingredientAppear = IngredientAppear(thisIngredient);
-    StartCoroutine(ingredientAppear);
     
+    StartCoroutine(ingredientAppear = IngredientAppear(thisIngredient));
     return thisIngredient;
   }
 
