@@ -4,9 +4,15 @@ using System.Collections;
 public class BlenderLid : MonoBehaviour {
   [Header("Lid Transform")]
   [SerializeField] private Transform lidTransform;
+
+  private void Start() {
+    LidState(true);
+  }
   
   private IEnumerator lidStatusChangeAnimation;
   public void LidState(bool setOpen) {
+    lidOpen = setOpen;
+      
     if (lidStatusChangeAnimation != null)
       StopCoroutine(lidStatusChangeAnimation);
 
@@ -21,4 +27,9 @@ public class BlenderLid : MonoBehaviour {
     }, setOpen ? .25f : .4f, () => { }));
   }
 
+  private bool lidOpen = true; // open?
+  public bool LidOpen() {
+    return lidOpen;
+  }
+  
 }

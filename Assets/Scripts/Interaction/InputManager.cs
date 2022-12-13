@@ -6,6 +6,7 @@ public class InputManager : MonoBehaviour {
   [SerializeField] private ScrollRect ingredientsMenu;
 
   [Header("References")]
+  [SerializeField] private Blender blender;
   [SerializeField] private ThrowIngredient throwIngredient;
   
   private GameObject interactedGameObject;
@@ -50,8 +51,12 @@ public class InputManager : MonoBehaviour {
           if (Physics.Raycast(ray, out hit)) {
             if (interactedGameObject == hit.collider.gameObject) {
               if (interactedGameObject.GetComponentInParent<IThrowable>() != null) {
+                // hit ingredient in controls
                 throwIngredient.Throw(interactedGameObject.GetComponentInParent<IThrowable>().Throw());
-              } 
+              } else if (interactedGameObject.GetComponentInParent<Blender>() != null) {
+                // hit blender button
+                blender.Blend();
+              }
             }
           }
           interactedGameObject.GetComponentInParent<IInteractive>().OnRelease();
