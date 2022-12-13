@@ -9563,6 +9563,7 @@ GameObject:
   - component: {fileID: 23951654235227019}
   - component: {fileID: 64195509658712736}
   - component: {fileID: 64195509658712737}
+  - component: {fileID: 64195509658712740}
   m_Layer: 0
   m_Name: Blender
   m_TagString: Untagged
@@ -9630,7 +9631,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1707806503797251}
   m_LocalRotation: {x: -0, y: 0.9863872, z: -0, w: -0.16443929}
-  m_LocalPosition: {x: -1.161, y: 1.923, z: 11.473}
+  m_LocalPosition: {x: -1.161, y: 1.937, z: 11.473}
   m_LocalScale: {x: 4, y: 4, z: 4}
   m_ConstrainProportionsScale: 1
   m_Children:
@@ -9862,6 +9863,25 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   blenderLid: {fileID: 64195509658712736}
+  blenderFiller: {fileID: 4142131792955178516}
+  blenderFillerMeshRenderer: {fileID: 3695639822976726582}
+  blenderShake: {fileID: 64195509658712740}
+--- !u!114 &64195509658712740
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1707806503797251}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 53974ceaddaee488dbd4986f6693d919, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  blenderTransform: {fileID: 4657598567650187}
+  frequency: 25
+  traumaExponent: 2
+  recoverySpeed: 0.5
 --- !u!33 &596255087652667419
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -9890,7 +9910,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: -295753086057916210, guid: 7981b7a870da38f4bb9d1ebabac70f41, type: 3}
+  - {fileID: 2100000, guid: 935b1070ed4ea4855afe6e77876260d6, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -9929,7 +9949,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &4513153630485480449
 Transform:
   m_ObjectHideFlags: 0

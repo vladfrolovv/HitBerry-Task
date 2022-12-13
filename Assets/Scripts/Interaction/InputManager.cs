@@ -52,7 +52,7 @@ public class InputManager : MonoBehaviour {
             if (interactedGameObject == hit.collider.gameObject) {
               if (interactedGameObject.GetComponentInParent<IThrowable>() != null) {
                 // hit ingredient in controls
-                throwIngredient.Throw(interactedGameObject.GetComponentInParent<IThrowable>().Throw());
+                throwIngredient.Throw(interactedGameObject.GetComponent<IThrowable>().Throw());
               } else if (interactedGameObject.GetComponentInParent<Blender>() != null) {
                 // hit blender button
                 blender.Blend();

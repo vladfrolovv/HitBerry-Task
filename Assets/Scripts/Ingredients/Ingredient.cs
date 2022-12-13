@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 
-public class Ingredient : MonoBehaviour, IIngredient, IThrowable {
+public class Ingredient : MonoBehaviour, IIngredient, IThrowable, IBlendable {
   [Header("Color")]
   [SerializeField] private Color _ingredientColor;
 
@@ -24,11 +24,21 @@ public class Ingredient : MonoBehaviour, IIngredient, IThrowable {
     return Animator.Animate((float t) => {
       t = Easings.easeOutBack(t);
       thisIngredient.transform.localScale = Animator.Lerp(Vector3.zero, Vector3.one, t);
-    }, .12f, () => {    
+    }, .06f, () => {    
       thisIngredient.AddComponent<Rigidbody>();
     });
   }
 
+  public void Blend() {
+    Destroy(gameObject.GetComponent<Rigidbody>());
+    StartCoroutine(Animator.Animate((float t) => {
+      t = Easings.easeOutBack(t);
+      gameObject.transform.localScale = Animator.Lerp(Vector3.one, Vector3.zero, t);
+    }, 2f, () => {    
+      Destroy(gameObject);
+    }));
+  }
+  
   public GameObject Throw() {
     return GetIngredient();
   }
