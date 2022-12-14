@@ -25,7 +25,7 @@ public class SetChallengeBubble : MonoBehaviour {
       bubbleRectTransform.localScale = Animator.Lerp(scaleFrom, setActive ? standardBubbleScale : Vector3.zero, t);
     }, .2f, () => {
       if (reset)
-        StartCoroutine(BubbleStatus(true, false));
+        StartCoroutine(Animator.WithTimeout(() => { StartCoroutine(BubbleStatus(true, false)); }, .1f));
     });
   }
 }
