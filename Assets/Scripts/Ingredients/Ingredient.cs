@@ -1,7 +1,5 @@
-using System.Collections;
-using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
+using System.Collections;
 
 public class Ingredient : MonoBehaviour, IIngredient, IThrowable, IBlendable {
   [Header("Color")]
@@ -30,10 +28,11 @@ public class Ingredient : MonoBehaviour, IIngredient, IThrowable, IBlendable {
   }
 
   public void Blend() {
+    Vector3 scaleFrom = gameObject.transform.localScale;
     Destroy(gameObject.GetComponent<Rigidbody>());
     StartCoroutine(Animator.Animate((float t) => {
       t = Easings.easeOutBack(t);
-      gameObject.transform.localScale = Animator.Lerp(Vector3.one, Vector3.zero, t);
+      gameObject.transform.localScale = Animator.Lerp(scaleFrom, Vector3.zero, t);
     }, 2f, () => {    
       Destroy(gameObject);
     }));

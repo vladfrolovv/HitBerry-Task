@@ -6,15 +6,15 @@ public class Blender : MonoBehaviour {
   private const int MAX_INGREDIENTS_IN_BLENDER = 10;
   private readonly List<GameObject> ingredientsInBlender = new List<GameObject>();
 
-  [Header("Lid")]
+  [Header("References")]
   [SerializeField] private BlenderLid blenderLid;
+  [SerializeField] private BlenderShake blenderShake;
+  [SerializeField] private LevelConstructor levelConstructor;
 
   [Header("Filler")]
   [SerializeField] private GameObject blenderFiller;
   [SerializeField] private MeshRenderer blenderFillerMeshRenderer;
 
-  [Header("Shaker")]
-  [SerializeField] private BlenderShake blenderShake;
 
   private Vector3 standardFillerScale;
   private Vector3 blenderFillerScale => blenderFiller.transform.localScale;
@@ -27,13 +27,23 @@ public class Blender : MonoBehaviour {
     if (ingredientsInBlender.Count == 0) { return; }
     
     blenderLid.LidState(false); // close lid
-    StartCoroutine(FillBlender()); // start filling
+    StartCoroutine(Animator.WithTimeout(() => {
+      StartCoroutine(FillBlender());
+    }, .1f)); // start filling
     
     blenderFillerMeshRenderer.materials[0].color = GetBlendColor(); // set color
     RemoveAllIngredientsFromBlender(); // remove ingredients
 
     blenderShake.enabled = true;
     blenderShake.InduceStress(1); // shake blender
+
+    StartCoroutine(Animator.WithTimeout(() => {
+      if (levelConstructor.LevelPassed(GetBlendColor())) 
+        levelConstructor.NextLevel();
+      
+      ClearBlender();
+    }, 2f));
+
   }
 
   private IEnumerator FillBlender() {
@@ -41,7 +51,7 @@ public class Blender : MonoBehaviour {
     return Animator.Animate((float t) => {
       t = Easings.easeOutQuint(t);
       blenderFiller.transform.localScale = Animator.Lerp(scaleFrom, standardFillerScale, t);
-    }, 1.2f, () => { });
+    }, 1.4f, () => { });
   }
 
   private void RemoveAllIngredientsFromBlender() {
@@ -69,6 +79,18 @@ public class Blender : MonoBehaviour {
       b / ingredientsInBlender.Count, 
       a  / ingredientsInBlender.Count
     );
+  }
+
+  public void ClearBlender() {
+    blenderLid.LidState(true); 
+    RemoveAllIngredientsFromBlender();
+    
+    Vector3 scaleFrom = blenderFillerScale;
+    StartCoroutine(Animator.Animate((float t) => {
+      t = Easings.easeOutQuint(t);
+      blenderFiller.transform.localScale = Animator.Lerp(scaleFrom, Vector3.zero, t);
+    }, 1f, () => { }));
+    ingredientsInBlender.Clear();
   }
   
   public bool BlenderOverflow() {
